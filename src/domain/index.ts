@@ -1,8 +1,8 @@
-/** 
+/**
  * This file represents our domain model - blogging platform with users and posts.
  */
 
-import { AtLeastOne } from "../utils/atLeastOne";
+import { AtLeastOne } from '../utils/atLeastOne';
 
 /**
  * User of our system – just a simple collection of fields
@@ -32,9 +32,9 @@ export type DBPost = Post & {
 
 /**
  * A convenience alias for a post update model.
- * 
+ *
  * Contains a required field – `author` and at least one other field – `title`, `body` or `tags` – as required
- * 
+ *
  * @example
  * const update1: PostUpdate = { author: john }; // ❌ ts(6133)
  * const update2: PostUpdate = { author: john, title: 'New post' } // ✅
