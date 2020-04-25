@@ -1,0 +1,30 @@
+{
+  "name": "workshop-edsl",
+  "version": "1.0.0",
+  "description": "Code template for \"Building eDSLs in functional TypeScript\" workshop",
+  "main": "index.js",
+  "scripts": {
+    "run:fm": "ts-node ./src/free-monads/examples.ts",
+    "run:tf": "ts-node ./src/tagless-final/examples.ts"
+  },
+  "keywords": [
+    "edsl",
+    "fp",
+    "ts",
+    "fp-ts",
+    "typescript",
+    "workshop"
+  ],
+  "author": "Yuriy Bogomolov <yuriy.bogomolov@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^13.13.2",
+    "ts-node": "^8.9.0",
+    "tslint": "^6.1.1",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "fp-ts": "^2.5.3",
+    "fp-ts-contrib": "^0.1.15"
+  }
+}

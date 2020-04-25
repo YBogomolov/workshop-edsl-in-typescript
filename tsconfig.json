@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "incremental": true,
+    "module": "commonjs",
+    "target": "ESNext",
+    "esModuleInterop": true,
+    "sourceMap": false,
+    "allowJs": false,
+    "noImplicitAny": true,
+    "lib": [
+      "es6",
+      "dom"
+    ],
+    "rootDir": "src",
+    "moduleResolution": "node",
+    "types": [
+      "node"
+    ]
+  }
+}
