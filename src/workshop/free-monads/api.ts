@@ -17,7 +17,7 @@ updatePost : (postId: number, update: PartialPost) => Post
 
 * Network *
 
-netSend : <T>(payload: T, address: string) => void
+netSend : <T>(payload: T, email: string) => void
 */
 
 import { Post, PostUpdate } from '../../domain';
@@ -80,7 +80,7 @@ export const dbUpdatePost =
  * Sends a list of posts via network.
  *
  * @param posts A list of posts to send via network
- * @param to Address to send these `posts` to.
+ * @param to Email to send these `posts` to.
  */
 export const netSendPosts =
   (posts: Post[], to: string) => notImplemented();
