@@ -1,5 +1,11 @@
+import { Functor1 } from 'fp-ts/lib/Functor';
+import { Kind, URIS } from 'fp-ts/lib/HKT';
+import { Monad1 } from 'fp-ts/lib/Monad';
+import * as O from 'fp-ts/lib/Option';
+
 import { Post, PostUpdate } from '../../domain';
-import { notImplemented } from '../../utils/throw';
+
+import Option = O.Option;
 
 /*
 Here you'll write API for the eDSL – a set of operations which represent your core domain logic
@@ -20,8 +26,26 @@ updatePost : (postId: number, update: PostUpdate) => Option<DBPost>
 
 * Network *
 
-netSend : <T>(payload: T, email: string) => void
+netSend : <T>(payload: T, address: string) => void
 */
+
+export interface KVStore<F extends URIS> {
+  readonly kvGet: (key: string) => Kind<F, Option<string>>;
+  readonly kvPut: (key: string, value: string) => Kind<F, boolean>;
+  readonly kvDelete: (key: string) => Kind<F, boolean>;
+}
+
+export interface Database<F extends URIS> {
+  readonly getPosts: (userId: number) => Kind<F, Post[]>;
+  readonly createPost: (post: Post) => Kind<F, Post>;
+  readonly updatePost: (postId: number, update: PostUpdate) => Kind<F, Option<Post>>;
+}
+
+export interface NetSend<F extends URIS> {
+  readonly netSend: <T>(payload: T, address: string) => Kind<F, void>;
+}
+
+export type Program<F extends URIS> = KVStore<F> & Database<F> & NetSend<F> & Monad1<F>;
 
 // * API
 
@@ -31,8 +55,8 @@ netSend : <T>(payload: T, email: string) => void
  *
  * @param userId User ID for which we want to get cached posts
  */
-export const cacheGetPosts =
-  (userId: number) => notImplemented();
+export const cacheGetPosts = <F extends URIS>(KV: Functor1<F> & KVStore<F>) =>
+  (userId: number) => KV.map(KV.kvGet(`${userId}`), O.map(s => JSON.parse(s) as Post[]));
 
 /**
  * Stores a list of posts of the given user (identified by `userId`) in the cache.
@@ -40,32 +64,32 @@ export const cacheGetPosts =
  * @param userId User ID – a will be used as a key for cache
  * @param posts A list of posts to store in cache
  */
-export const cacheStorePosts =
-  (userId: number, posts: Post[]) => notImplemented();
+export const cacheStorePosts = <F extends URIS>(KV: KVStore<F>) =>
+  (userId: number, posts: Post[]) => KV.kvPut(`${userId}`, JSON.stringify(posts));
 
 /**
  * Clears cache for a given user ID.
  *
  * @param userId User ID
  */
-export const cacheInvalidate =
-  (userId: number) => notImplemented();
+export const cacheInvalidate = <F extends URIS>(KV: KVStore<F>) =>
+  (userId: number) => KV.kvDelete(`${userId}`);
 
 /**
  * Gets a list of posts belonging to the given user (identified by `userId`).
  *
  * @param userId User ID – author of posts
  */
-export const dbGetPosts =
-  (userId: number) => notImplemented();
+export const dbGetPosts = <F extends URIS>(DB: Database<F>) =>
+  (userId: number) => DB.getPosts(userId);
 
 /**
  * Stores post in the database.
  *
  * @param post Post data to store in the DB
  */
-export const dbCreatePost =
-  (post: Post) => notImplemented();
+export const dbCreatePost = <F extends URIS>(DB: Database<F>) =>
+  (post: Post) => DB.createPost(post);
 
 /**
  * Updated a post in the database, identified by its ID.
@@ -73,23 +97,29 @@ export const dbCreatePost =
  * @param postId Post ID
  * @param update A set of updated fields for this post ID
  */
-export const dbUpdatePost =
-  (postId: number, update: PostUpdate) => notImplemented();
+export const dbUpdatePost = <F extends URIS>(DB: Database<F>) =>
+  (postId: number, update: PostUpdate) => DB.updatePost(postId, update);
 
 /**
  * Sends a list of posts via network.
  *
  * @param posts A list of posts to send via network
- * @param to Email to send these `posts` to.
+ * @param to Address to send these `posts` to.
  */
-export const netSendPosts =
-  (posts: Post[], to: string) => notImplemented();
+export const netSendPosts = <F extends URIS>(NET: NetSend<F>) =>
+  (posts: Post[], to: string) => NET.netSend(posts, to);
 
 /**
  * **Bonus points**: implement a `getInstanceFor` method. Think what `P` parameter might be?
  */
-export const getInstanceFor = (P: unknown) => {
+export const getInstanceFor = <F extends URIS>(P: Program<F>) => {
   return {
-    // ???
+    cacheGetPosts: cacheGetPosts(P),
+    cacheStorePosts: cacheStorePosts(P),
+    cacheInvalidate: cacheInvalidate(P),
+    dbGetPosts: dbGetPosts(P),
+    dbCreatePost: dbCreatePost(P),
+    dbUpdatePost: dbUpdatePost(P),
+    netSendPosts: netSendPosts(P),
   };
 };
