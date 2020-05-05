@@ -15,6 +15,7 @@
     "rootDir": "src",
     "moduleResolution": "node",
     "types": [
+      "jest",
       "node"
     ]
   }

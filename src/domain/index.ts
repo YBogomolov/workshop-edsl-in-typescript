@@ -47,4 +47,4 @@ export type PostUpdate = AtLeastOne<Partial<Omit<Post, 'author'>>> & Pick<Post, 
 
 export const john: User = { id: 1, name: 'John Smith', email: 'john.smith@example.com' };
 
-export const coolPost: Post = { title: 'Cool', body: 'Post', tags: [], author: john };
+export const coolPost: DBPost = { id: 1, title: 'Cool', body: 'Post', tags: [], author: john };

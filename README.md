@@ -59,6 +59,7 @@ If you want to prepare for this workshop better, I highly recommend reading thes
 2. Install all the dependencies using `npm ci`.
 3. Open the repository in editor of your choice and follow along with the explanations.
 4. If you stuck, feel free to use one of recovery points (see below) to catch-up.
+5. Occasionally run tests (`npm test`) to see if you implemented the logic correctly.
 
 Recovery points are branches with implemented crucial for understaning the material checkpoints. Their names are:
 - 01-free-api

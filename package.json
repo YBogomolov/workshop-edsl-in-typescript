@@ -4,6 +4,7 @@
   "description": "Code template for \"Building eDSLs in functional TypeScript\" workshop",
   "main": "index.js",
   "scripts": {
+    "test": "jest",
     "run:fm": "ts-node ./src/free-monads/examples.ts",
     "run:tf": "ts-node ./src/tagless-final/examples.ts"
   },
@@ -24,7 +25,10 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
+    "@types/jest": "^25.2.1",
     "fp-ts": "^2.5.3",
-    "fp-ts-contrib": "^0.1.15"
+    "fp-ts-contrib": "^0.1.15",
+    "jest": "^25.5.4",
+    "ts-jest": "^25.4.0"
   }
 }
