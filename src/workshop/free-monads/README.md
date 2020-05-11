@@ -1,6 +1,6 @@
 # Free monads
 
-> 'free' like in 'free beer' and not in 'free speech'
+> 'free' like in 'freedom' and not in 'free beer'
 
 First of all, what does "free" means? It means "free of computations", so a *[free object](https://en.wikipedia.org/wiki/Free_object)* in general is something that holds the meaning of its origin, merely describing it. In our example you can think that "free monad" is just something which mimic the structure of a monad, and could be *interpreted* into a real monad.
 
