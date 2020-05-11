@@ -1,9 +1,9 @@
-import { Post } from '../domain';
+import { DBPost, User } from '../domain';
 
-export type DB = Record<number, Record<number, Post>>;
+export type DB = Record<User['id'], Record<DBPost['id'], DBPost>>;
 
 export const getNextId = (db: DB, authorId: number): number => {
-  const userPost = db[authorId];
-  const id = Math.max(Math.max(...Object.keys(userPost || {}).map(k => +k)) + 1, 1);
+  const userPosts = db[authorId];
+  const id = Math.max(Math.max(...Object.keys(userPosts || {}).map(k => +k)) + 1, 1);
   return id;
 };

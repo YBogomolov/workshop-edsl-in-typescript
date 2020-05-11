@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "run:fm": "ts-node ./src/free-monads/examples.ts",
-    "run:tf": "ts-node ./src/tagless-final/examples.ts"
+    "run:fm": "ts-node ./src/workshop/free-monads/run.ts",
+    "run:tf": "ts-node ./src/workshop/tagless-final/run.ts"
   },
   "keywords": [
     "edsl",

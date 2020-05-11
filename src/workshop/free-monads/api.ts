@@ -11,9 +11,9 @@ kvDelete : (key: string) => boolean
 
 * Database *
 
-getPosts   : (userId: number) => Post[]
-createPost : (post: PostWithoutId) => Post
-updatePost : (postId: number, update: PartialPost) => Post
+getPosts   : (userId: number) => DBPost[]
+createPost : (post: Post) => DBPost
+updatePost : (postId: number, update: PostUpdate) => Option<DBPost>
 
 * Network *
 
