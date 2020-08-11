@@ -57,7 +57,7 @@ If you want to prepare for this workshop better, I highly recommend reading thes
 
 1. Clone it to your local computer.
 2. Install all the dependencies using `npm ci`.
-3. Open the repository in editor of your choice and follow along with the explanations.
+3. Open the repository in editor of your choice and follow along with the explanations. Corresponding video is published here: https://www.youtube.com/watch?v=hTnxaB52awA.
 4. If you stuck, feel free to use one of recovery points (see below) to catch-up.
 5. Occasionally run tests (`npm test`) to see if you implemented the logic correctly.
 
